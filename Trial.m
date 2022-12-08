@@ -37,7 +37,8 @@ classdef Trial
             end       
         end
 
-
+        % getPatientInput function used to get the patient's answer and
+        % store it for comparison with the expected answer
         function observed_result = getPatientInput(cue, probe)
             disp(cue);
             disp(probe);
