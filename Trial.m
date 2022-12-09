@@ -27,6 +27,11 @@ classdef Trial
             obj.probes = probes;
         end
         
+        function [expected, observed] = conductTrial(cue, probes)
+            expected = predictResult(cue, probes);
+            observed = getPatientInput(cue, probes);
+        end
+
         % predictResults function used to get the right answer for given
         % cue and probes. Used as a comparison for patient input
         function expected_result = predictResult(cue, probes)
