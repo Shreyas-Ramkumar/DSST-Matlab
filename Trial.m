@@ -27,15 +27,15 @@ classdef Trial
             obj.probes = probes;
         end
         
-        function [expected, observed] = conductTrial(cue, probes)
-            expected = predictResult(cue, probes);
-            observed = getPatientInput(cue, probes);
+        function [expected, observed] = conductTrial(obj)
+            expected = obj.predictResult();
+            observed = obj.getPatientInput();
         end
 
         % predictResults function used to get the right answer for given
         % cue and probes. Used as a comparison for patient input
-        function expected_result = predictResult(cue, probes)
-            if ismember(cue, probes)
+        function expected_result = predictResult(obj)
+            if ismember(obj.cue, obj.probes)
                 expected_result = "R";
             else 
                 expected_result = "L";
@@ -44,11 +44,10 @@ classdef Trial
 
         % getPatientInput function used to get the patient's answer and
         % store it for comparison with the expected answer
-        function observed_result = getPatientInput(cue, probe)
-            disp(cue);
-            disp(probe);
+        function observed_result = getPatientInput(obj)
+            disp(obj.cue);
+            disp(obj.probes);
             observed_result = input("Type 'R' if the cue is present in the probe, type 'L' if the cue is not present in the probe. ");
         end
-
     end
 end
