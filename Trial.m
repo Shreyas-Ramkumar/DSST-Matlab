@@ -1,13 +1,17 @@
-% basic structure for a DSST Trial, including expected and observed
-% results, cue initialization, and probe initialization
+% basic structure for a DSST Trial, including the methods for the computer
+% to check whether the cue is in a probe set and to get the patient to tell
+% whether the cue is in a probe set
 
 classdef Trial
 
     properties
-        % variables used in class. actual values of cue and probes (ie. the
-        % symbols and numbers are defined in the "block" class
-        % as value definition there will allow abstraction for functions in
-        % Trial class
+        % cue and probe values are initialzied in the block scope and 
+        % passed as parameters to the trial class when initialized. This 
+        % is so that every time a trial is conducted, there's a new set
+        % of cues and probes. Plus, it's easier to just pass the cue
+        % and probes as parameters rather than initialize them within
+        % the trial class itself as scope management will be a lot easier
+        % :)
        
         cue
         probes
@@ -17,24 +21,24 @@ classdef Trial
 
     methods
 
-        % initialization of Trial class to an "obj" object. this will allow
-        % class properties to be referred throughout class methods. as
-        % stated above, cue and probe values are parameters in this class
-        % as they can be defined properly in the "experiment" parent class.
-
+        % class initialization
         function obj = Trial(cue, probes)
             obj.cue = cue;
             obj.probes = probes;
         end
         
+        % method to conduct trial, returns the expected value (ie. the
+        % correct result based on whether the cue is in the probe or not)
+        % and the observed value (ie. the patient's answer)
         function [expected, observed] = conductTrial(obj)
-            expected = obj.predictResult();
+            expected = obj.getCorrectAnswer();
             observed = obj.getPatientInput();
         end
 
+
         % predictResults function used to get the right answer for given
         % cue and probes. Used as a comparison for patient input
-        function expected_result = predictResult(obj)
+        function expected_result = getCorrectAnswer(obj)
             if ismember(obj.cue, obj.probes)
                 expected_result = "R";
             else 
@@ -42,6 +46,7 @@ classdef Trial
             end       
         end
 
+        
         % getPatientInput function used to get the patient's answer and
         % store it for comparison with the expected answer
         function observed_result = getPatientInput(obj)
