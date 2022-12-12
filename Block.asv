@@ -25,12 +25,9 @@ classdef Block
         % initialized within the loop as each trial should have different
         % cues and probes
         function [predicted_results, observed_results] = conductTrials(obj)
-            predicted_results = [];
-            observed_results = [];
             for x = 1:8
                 [cue, probes] = obj.assignStimuli();
-                trial = Trial(cue, probes);
-                [predicted, observed] = trial.conductTrial();
+                [predicted, observed] = conductTrial(cue, probes);
                 predicted_results = cat(2, predicted_results, predicted);
                 observed_results = cat(2, observed_results, observed);
             end
@@ -44,7 +41,7 @@ classdef Block
         function [cue, probes] = assignStimuli(obj)
             numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; % set of numbers to be used for creating cue and probes
             symbols = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; % set of symbols (for the sake of making sure all the programs work, numbers will be used here)
-            cue = [numbers(1, randi([1, 10]), 1, 1); symbols(1, randi([1, 10], 1, 1))];
+            cue = [numbers(1, randi([1, 10]), 1, 1), symbols(1, randi([1, 10], 1, 1))];
             probes = [];
             if (obj.type=="experimental")
                 for x = 1:4

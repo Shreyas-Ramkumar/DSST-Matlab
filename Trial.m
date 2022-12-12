@@ -5,9 +5,9 @@ classdef Trial
 
     properties
         % variables used in class. actual values of cue and probes (ie. the
-        % symbols and numbers are defined in the "experiment" parent class
+        % symbols and numbers are defined in the "block" class
         % as value definition there will allow abstraction for functions in
-        % Trial and Block classes
+        % Trial class
        
         cue
         probes
@@ -47,7 +47,7 @@ classdef Trial
         function observed_result = getPatientInput(obj)
             disp(obj.cue);
             disp(obj.probes);
-            observed_result = input("Type 'R' if the cue is present in the probe, type 'L' if the cue is not present in the probe. ");
+            observed_result = input("Type 'R' if the cue is present in the probe, type 'L' if the cue is not present in the probe. ", "s");
         end
     end
 end
